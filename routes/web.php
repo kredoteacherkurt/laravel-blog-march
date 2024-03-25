@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CommentController;
 
 
 Auth::routes();
@@ -15,6 +16,8 @@ Route::group(["middleware"=>"auth"],function(){
     Route::get('/edit/{id}', [PostController::class, 'edit'])->name('post.edit');
     Route::patch('/update/{id}', [PostController::class, 'update'])->name('post.update');
     Route::delete('/destroy/{id}', [PostController::class, 'destroy'])->name('post.destroy');
+
+    Route::resource('/comments',CommentController::class);
 
 
 
