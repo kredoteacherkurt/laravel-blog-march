@@ -20,7 +20,19 @@
     <ul class="list-group mt-3">
         @foreach ($post->comments as $comment)
             <li class="list-group-item">
-               <p><span class="fw-bold">{{$comment->user->name}}</span> : {{$comment->body}}</p>
+               <p class="p-0 m-0"><span class="fw-bold">{{$comment->user->name}}</span> : {{$comment->body}}</p>
+               <p class="small p-0 m-0 text-muted d-inline">{{$comment->created_at->diffForHumans()}}</p>
+               @if ($comment->user->id == Auth::user()->id)
+                {{-- homework --}}
+
+                    <form action="{{route('comments.destroy',$comment->id)}}" method="post" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit" class="btn text-danger btn-sm">Delete</button>
+                    </form>
+
+            @endif
             </li>
         @endforeach
     </ul>
